@@ -1,0 +1,37 @@
+name: ci
+on:
+  workflow_dispatch:
+
+jobs:
+  docker_build_push_acr:
+    name: 'Docker Build and Pushb to Azure Container Registry'
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Checkout code               
+      uses: actions/checkout@v3
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: List repo files             
+      run: ls -la
+    
+    - name: Login to Azure Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ vars.registry }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags:  ${{ vars.registry }}/llm-chatbot:${{ github.sha }}
