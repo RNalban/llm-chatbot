@@ -1,13 +1,10 @@
-name: ci
+name: Docker Build and Push to Azure Container Registry
 on:
   workflow_dispatch:
 
 jobs:
-  docker_build_push_acr:
-    name: 'Docker Build and Pushb to Azure Container Registry'
+  build:
     runs-on: ubuntu-latest
-
-
     steps:
     - name: Checkout code               
       uses: actions/checkout@v3
