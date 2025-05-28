@@ -32,3 +32,12 @@ jobs:
         file: ./Dockerfile
         push: true
         tags:  ${{ vars.registry }}/llm-chatbot:${{ github.sha }}
+    
+    - name: Save Docker tag to file
+      run: echo "${{ vars.registry }}/llm-chatbot:${{ github.sha }}" > docker_tag.txt
+
+    - name: Upload Docker tag artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: docker-tag
+        path: docker_tag.txt    

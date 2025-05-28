@@ -14,18 +14,30 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
+        
+        - name: Download Docker tag artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: docker-tag
+            path: .
+
+        - name: Read Docker tag
+          id: read_tag
+          run: |
+            TAG=$(cat docker_tag.txt)
+            echo "docker_tag=$TAG" >> $GITHUB_OUTPUT
         - name: Azure Login
           uses: azure/login@v1
           with:
-            creds: ${{secrets.AZURE_CREDENTIALS}}
-            
+            creds: ${{secrets.AZURE_CREDENTIALS}}    
+
         - name: Azure  Deployment  
           uses: azure/container-apps-deploy-action@v1
           with:
-          resourceGroup: <your-resource-group>
-          name: 
-          image: ${{ vars.registry }}/llm-chatbot:<tag>
-          ingress: 'external'   
+            resource-group: ${{ vars.RESOURCE_GROUP }}
+            name: ${{ vars.AZURE_CONTAINER_NAME }}
+            image: ${{ steps.read_tag.outputs.docker_tag }}
+            ingress: 'external'   
 
 
     
