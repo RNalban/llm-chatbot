@@ -18,6 +18,14 @@ jobs:
           uses: azure/login@v1
           with:
             creds: ${{secrets.AZURE_CREDENTIALS}}
+            
+        - name: Azure  Deployment  
+          uses: azure/container-apps-deploy-action@v1
+          with:
+          resourceGroup: <your-resource-group>
+          name: 
+          image: ${{ vars.registry }}/llm-chatbot:<tag>
+          ingress: 'external'   
 
 
     
