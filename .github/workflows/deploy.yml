@@ -34,9 +34,11 @@ jobs:
         - name: Azure Deployment  
           uses: azure/container-apps-deploy-action@v1
           with:
-            resource-group: ${{ vars.RESOURCE_GROUP }}
-            name: ${{ vars.AZURE_CONTAINER_NAME }}
-            image: ${{ steps.read_tag.outputs.docker_tag }}
+            registryUsername: ${{ secrets.REGISTRY_USERNAME }}
+            registryPassword: ${{ secrets.REGISTRY_PASSWORD }}
+            resourceGroup: ${{ vars.RESOURCE_GROUP }}
+            containerAppName: ${{ vars.AZURE_CONTAINER_NAME }}
+            imageToDeploy: ${{ steps.read_tag.outputs.docker_tag }}
             ingress: 'external'   
 
 
