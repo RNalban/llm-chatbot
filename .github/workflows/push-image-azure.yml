@@ -40,7 +40,7 @@ jobs:
       run: ls -l  
 
     - name: Upload Docker tag artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: docker-tag
         path: ${{ github.workspace }}/docker_tag.txt    
