@@ -19,7 +19,7 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: docker-tag
-            path: ${{ github.workspace }}/docker_tag.txt
+            path: .
 
         - name: Read Docker tag
           id: read_tag
