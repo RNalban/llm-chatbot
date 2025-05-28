@@ -36,6 +36,9 @@ jobs:
     - name: Save Docker tag to file
       run: echo "${{ vars.registry }}/llm-chatbot:${{ github.sha }}" > docker_tag.txt
 
+    - name: List current directory contents
+      run: ls -l  
+
     - name: Upload Docker tag artifact
       uses: actions/upload-artifact@v3
       with:
