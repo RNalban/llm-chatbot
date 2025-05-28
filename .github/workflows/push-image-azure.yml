@@ -40,4 +40,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: docker-tag
-        path: docker_tag.txt    
+        path: ${{ github.workspace }}/docker_tag.txt    
