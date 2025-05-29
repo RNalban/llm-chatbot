@@ -42,7 +42,17 @@ jobs:
             resourceGroup: ${{ vars.RESOURCE_GROUP }}
             containerAppName: ${{ vars.AZURE_CONTAINER_NAME }}
             imageToDeploy: ${{ steps.read_tag.outputs.docker_tag }}
-            ingress: 'external'   
+            ingress: 'external'
+        
+        - name: Scale container app to 1 replica
+          uses: azure/cli@v2
+          with:
+            azcliversion: latest
+            inlineScript: |
+              az containerapp scale set \
+                --name ${{ vars.CONTAINER_APP_NAME }} \
+                --resource-group ${{ vars.RESOURCE_GROUP }} \
+                --min-replicas 1
 
 
     
