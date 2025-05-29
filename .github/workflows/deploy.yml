@@ -27,9 +27,8 @@ jobs:
         - name: Read Docker tag
           id: read_tag
           run: |
-            unzip docker-tag.zip
              TAG=$(cat docker_tag.txt)
-            echo "docker_tag=$TAG" >> $GITHUB_OUTPUT
+             echo "docker_tag=$TAG" >> $GITHUB_OUTPUT
         - name: Azure Login
           uses: azure/login@v1
           with:
