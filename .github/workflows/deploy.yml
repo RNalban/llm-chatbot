@@ -43,7 +43,7 @@ jobs:
             containerAppName: ${{ vars.AZURE_CONTAINER_NAME }}
             imageToDeploy: ${{ steps.read_tag.outputs.docker_tag }}
             ingress: 'external'
-            targetPort: 8501
+            targetPort: 8080
 
 
     

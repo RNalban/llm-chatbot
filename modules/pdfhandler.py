@@ -5,7 +5,7 @@ def upload_files():
     with st.sidebar:
         st.header("Upload PDF Documents")
         uploaded_files=st.file_uploader("Choose",type="pdf",accept_multiple_files=True)
-        api_key=st.text_input("Enter GroqAI API Key", type-"password",placeholder="Your API Key")
+        
         submit=st.button("Process")
     return uploaded_files,submit
 
