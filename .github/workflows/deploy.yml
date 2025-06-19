@@ -37,6 +37,7 @@ jobs:
         - name: Azure Deployment  
           uses: azure/container-apps-deploy-action@v1
           with:
+            registryUrl: ${{ vars.REGISTRY }}
             registryUsername: ${{ secrets.REGISTRY_USERNAME }}
             registryPassword: ${{ secrets.REGISTRY_PASSWORD }}
             resourceGroup: ${{ vars.RESOURCE_GROUP }}
