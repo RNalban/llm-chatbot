@@ -1,4 +1,6 @@
 [server]
+port = 80
 headless= true
+enableCORS = false
 runOnSave = true
 fileWatcherType = "polling"

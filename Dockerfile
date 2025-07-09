@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.10-slim
 
 WORKDIR /llm-chatbot
 COPY ./requirements.txt .
@@ -7,16 +7,20 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-ENV port=8080
-EXPOSE 8080
+
+# ✅ Azure expects the container to serve on port 80
+ENV port=80
+EXPOSE 80
+
+# ✅ Environment variables for Hugging Face and Groq
 ARG GROQ_API_KEY
 ENV GROQ_API_KEY=$GROQ_API_KEY
 
 ARG HUGGINGFACEHUB_API_TOKEN
 ENV HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN
 
+# ✅ Optional healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-CMD curl --fail http://localhost:8080/_stcore/health || exit 1
+  CMD curl --fail http://localhost:80/_stcore/health || exit 1
 
-ENTRYPOINT [ "streamlit","run","./index.py","--server.port=8080", "--server.address=0.0.0.0" ]
-
+# ✅ Run Streamlit on port 80
