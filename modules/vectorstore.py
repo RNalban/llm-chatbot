@@ -2,7 +2,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from modules.pdfhandler import save_files
 from langchain.vectorstores import Chroma
-from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders.pdf import PyPDFLoader
 
 import os
 PERSIST_DIR="./chroma_store"
