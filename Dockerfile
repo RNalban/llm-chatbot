@@ -11,6 +11,7 @@ COPY . .
 # ✅ Azure expects the container to serve on port 80
 ENV port=80
 EXPOSE 80
+CMD ["streamlit", "run", "app.py", "--server.port=80", "--server.address=0.0.0.0"]
 
 # ✅ Environment variables for Hugging Face and Groq
 ARG GROQ_API_KEY
@@ -23,4 +24,5 @@ ENV HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD curl --fail http://localhost:80/_stcore/health || exit 1
 
-# ✅ Run Streamlit on port 80
+ 
+
