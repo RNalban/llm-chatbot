@@ -11,7 +11,7 @@ COPY . .
 # ✅ Azure expects the container to serve on port 80
 ENV port=80
 EXPOSE 80
-CMD ["streamlit", "run", "app.py", "--server.port=80", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "./index.py", "--server.port=80", "--server.address=0.0.0.0"]
 
 # ✅ Environment variables for Hugging Face and Groq
 ARG GROQ_API_KEY
