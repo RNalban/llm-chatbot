@@ -33,8 +33,7 @@ jobs:
         push: true
         tags:  ${{ vars.registry }}/llm-chatbot:${{ github.sha }}
         build-args: |
-          GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
-          HUGGiNGFACEHUB_API_TOKEN=${{ secrets.HUGGiNGFACEHUB_API_TOKEN }}
+        
     
     - name: Save Docker tag to file
       run: echo "${{ vars.registry }}/llm-chatbot:${{ github.sha }}" > docker_tag.txt

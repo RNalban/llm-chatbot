@@ -6,6 +6,10 @@ from langchain.document_loaders.pdf import PyPDFLoader
 
 import os
 PERSIST_DIR="./chroma_store"
+hf_token = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+if not hf_token:
+    raise ValueError("HUGGINGFACEHUB_API_TOKEN is not set.")
+
 def load_vectorstore(uploaded_files):
     paths=save_files(uploaded_files)
     docs=[]
@@ -14,7 +18,7 @@ def load_vectorstore(uploaded_files):
         docs.extend(loader.load())
         splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=200)
         texts=splitter.split_documents(docs)
-        embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L12-v2")
+        embeddings=HuggingFaceEmbeddings( huggingfacehub_api_token=hf_token,model_name="all-MiniLM-L12-v2")
         
         if os.path.exists(PERSIST_DIR) and os.listdir(PERSIST_DIR):
         # Append to existing

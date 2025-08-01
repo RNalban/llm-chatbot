@@ -8,21 +8,13 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-# ✅ Azure expects the container to serve on port 80
-ENV port=80
-EXPOSE 80
-CMD ["streamlit", "run", "./index.py", "--server.port=80", "--server.address=0.0.0.0"]
+# ✅ Azure expects the container to serve on port 8000
 
-# ✅ Environment variables for Hugging Face and Groq
-ARG GROQ_API_KEY
-ENV GROQ_API_KEY=$GROQ_API_KEY
-
-ARG HUGGINGFACEHUB_API_TOKEN
-ENV HUGGINGFACEHUB_API_TOKEN=$HUGGINGFACEHUB_API_TOKEN
-
+EXPOSE 8000
+CMD ["streamlit", "run", "./index.py", "--server.port=8000", "--server.address=0.0.0.0","--server.enableCORS=false", "--server.headless=true"]
 # ✅ Optional healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl --fail http://localhost:80/_stcore/health || exit 1
+  CMD curl --fail http://localhost:8000/_stcore/health || exit 1
 
  
 
